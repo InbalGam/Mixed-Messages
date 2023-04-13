@@ -1,28 +1,30 @@
-// constant phrase begining
-const phraseBegin = 'Let this day';
-// this parts of the phrase will be chosen randomly-
-const phraseMiddle = ['be', 'have', 'create', 'give'];
-const phraseEnd = ['a good day', 'positivity', 'magic', 'love'];
-
 // functions to select randomly the middle and end of the phrase-
-let middle = (middleArray) => {
-    let pos = Math.floor(Math.random() * middleArray.length);
-    return middleArray[pos];
+function beginSentence() {
+    const begin = {'day': 'Let this day',
+                   'mind': 'Let your mind',
+                   'hope': 'Set your hopes'};
+    beginKeys = Object.keys(begin);
+    let pos = Math.floor(Math.random() * beginKeys.length);
+    return [beginKeys[pos], begin[beginKeys[pos]]];
 }
 
 
-let end = (endArray) => {
-    let pos = Math.floor(Math.random() * endArray.length);
-    return endArray[pos];
+function endSentence(key) {
+    const end = {'day': ['be magical', 'be beautiful', 'be lovely'],
+                 'mind': ['wonder', 'be at ease', 'run with imagination'],
+                 'hope': ['high, they will not fail you', 'high, trust yourself']};
+    let pos = Math.floor(Math.random() * end[key].length);
+    let words = end[key].filter(value => end[key][pos] === value);
+    //console.log(end[key]);
+    return words;
 }
 
 
-function createPhrase(begin, middleP, endP) {
-    middleWords = ' ' + middle(middleP);
-    endWords = ' ' + end(endP);
-    return begin + middleWords + endWords;
+function createPhrase() {
+    let startArray = beginSentence();
+    let ending = endSentence(startArray[0]);
+    return startArray[1] + ' ' + ending;
 }
 
 
-console.log(createPhrase(phraseBegin, phraseMiddle, phraseEnd));
-
+console.log(createPhrase());
